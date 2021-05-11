@@ -11,6 +11,12 @@ public abstract class  Interactable : MonoBehaviour
     public float StopingDistance { 
         get { return _interactableDistance * 0.7f; } 
     }
+
+    protected virtual void Start()
+    {
+
+    }
+
     public void OnFocus(PlayerCreature player)
     {
         _isFocused = true;

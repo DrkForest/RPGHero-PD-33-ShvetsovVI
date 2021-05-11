@@ -5,13 +5,13 @@ using UnityEngine;
 [CreateAssetMenu(fileName = "Item", menuName = "Items")]
 public class ItemParams : ScriptableObject
 {
-    public ItemId ItemId;
+    public ItemParamsId ItemParamsId;
     public Mesh ItemMesh;
     public Material ItemMaterial;
     public Sprite ItemSprite;
 }
 
-public enum ItemId
+public enum ItemParamsId
 {
     Sword,
 }

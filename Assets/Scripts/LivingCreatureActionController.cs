@@ -61,9 +61,13 @@ public abstract class LivingCreatureActionController //: MonoBehaviour
 
     protected virtual void OnDestroy()
     {
-        _livingCreature.ServiceManager.DestroyHandler -= OnDestroy;
-        _livingCreature.ServiceManager.UpdateHandler -= OnUpdate;
-        
+        /*_livingCreature.ServiceManager.DestroyHandler -= OnDestroy;
+        _livingCreature.ServiceManager.UpdateHandler -= OnUpdate;*/
+        if (Vector3.Distance(_livingCreature.transform.position, _livingCreature.CreatureNavMeshAgent.destination) <= _livingCreature.CreatureNavMeshAgent.stoppingDistance)
+        {
+            ChangeAction(ActionType.Idle);
+            _livingCreature.CreatureNavMeshAgent.destination = _livingCreature.transform.position;
+        }
     }
 }
 

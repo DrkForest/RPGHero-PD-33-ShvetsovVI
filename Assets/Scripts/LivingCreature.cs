@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
+using System;
 
 [RequireComponent(typeof(Rigidbody), typeof(Collider), typeof(Animator))]
 [RequireComponent(typeof(NavMeshAgent))]
@@ -20,6 +21,7 @@ public abstract class LivingCreature : MonoBehaviour
 
     public PlayerController PlayerController => playerController;*/
 
+    public Action DestroyHandler = delegate { };
 
     // Start is called before the first frame update
     protected virtual void Start()
@@ -36,5 +38,10 @@ public abstract class LivingCreature : MonoBehaviour
     void Update()
     {
        
+    }
+
+    private void OnDestroy()
+    {
+        DestroyHandler();
     }
 }

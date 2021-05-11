@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using System;
+using UnityEngine.EventSystems;
 public class PCInputController //: MonoBehaviour
 {
     //public static PCInputController Instance;
@@ -23,6 +24,7 @@ public class PCInputController //: MonoBehaviour
     private bool _leftPointerClicker;
 
     public Action<Vector3, Collider> LeftPionterClickHandler = delegate { };
+    public Action CharacterWindowClicked = delegate { };
     //private Animator _playerAnimator;
     // Start is called before the first frame update
     //void Start()
@@ -33,19 +35,25 @@ public class PCInputController //: MonoBehaviour
         _cam = Camera.main;
         _serviceManager = ServiceManager.Instance;
         _serviceManager.UpdateHandler += OnUpdate;
-        //    _serviceManager.UpdateHandler += OnLateUpdate;
-        _serviceManager.UpdateHandler += OnFixedUpdate;
+        //_serviceManager.LateUpdateHandler += OnLateUpdate;
+        _serviceManager.FixedUpdateHandler += OnFixedUpdate;
         _serviceManager.DestroyHandler += OnDestroy;
-        //_navMeshAgent = GetComponent<NavMeshAgent>();
-        //_playerAnimator = GetComponent<Animator>();
+        // _navMeshAgent = GetComponent<NavMeshAgent>();
+        // _playerAnimator = GetComponent<Animator>();
     }
 
     // Update is called once per frame
     void OnUpdate()
     {
-        _leftPointerClicker = Input.GetButton("Fire1");
-       
+        if(!EventSystem.current.IsPointerOverGameObject())
+            _leftPointerClicker = Input.GetButton("Fire1");
 
+        if (Input.GetKeyDown(KeyCode.I))
+        {
+            Debug.Log("inventory i");
+            CharacterWindowClicked();
+        }
+            
         /*if (Input.GetButton("Fire1"))
         {
             Debug.Log(Input.mousePosition);
